@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Eskul */
 
-$this->title = 'Create Eskul';
-$this->params['breadcrumbs'][] = ['label' => 'Eskuls', 'url' => ['index']];
+$this->title = 'Tambah Data Ekstrakulikuler';
+$this->params['breadcrumbs'][] = ['label' => 'Data Ekstrakulikuler', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="eskul-create">

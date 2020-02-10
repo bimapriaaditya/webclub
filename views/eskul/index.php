@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\EskulSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Eskuls';
+$this->title = 'DATA EKSTRAKULIKULER';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="eskul-index">

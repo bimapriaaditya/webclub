@@ -16,8 +16,8 @@ use app\models\User;
 /* @var $this yii\web\View */
 /* @var $model app\models\Eskul */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Eskuls', 'url' => ['index']];
+$this->title = $model->nama;
+$this->params['breadcrumbs'][] = ['label' => 'Data Ektrakulikuler', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

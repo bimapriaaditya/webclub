@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $nama
  * @property string $data
+ * @property string $img
  */
 class Kalender extends \yii\db\ActiveRecord
 {
@@ -27,8 +28,9 @@ class Kalender extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'data'], 'required'],
-            [['nama', 'data'], 'string', 'max' => 255],
+            [['nama'], 'required'],
+            [['img' ,'data'], 'safe'],
+            [['nama', 'data', 'img'], 'string', 'max' => 255],
         ];
     }
 
@@ -41,6 +43,7 @@ class Kalender extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nama' => 'Nama',
             'data' => 'Data',
+            'img' => 'Img',
         ];
     }
 }

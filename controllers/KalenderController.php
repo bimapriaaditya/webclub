@@ -7,6 +7,7 @@ use app\models\Kalender;
 use app\models\KalenderSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -64,7 +65,25 @@ class KalenderController extends Controller
     {
         $model = new Kalender();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){
+            
+            $model->save();
+
+            $kalenderId = $model->id;
+            $kalenderName = $model->nama;
+
+            $image = UploadedFile::getInstance($model, 'img');
+            $imageName = 'kal_img_' . $kalenderId . '_' . $kalenderName . '.' . $image->getExtension();
+            $image->saveAs(Yii::getAlias('@kalenderImgPath') . '/' . $imageName);
+            $model->img = $imageName;
+
+            $kalenderData = UploadedFile::getInstance($model, 'data');
+            $dataName = 'kal_dat_' . $kalenderId . '_' . $kalenderName . '.' . $kalenderData->getExtension();
+            $kalenderData->saveAs(Yii::getAlias('@kalenderDataPath') . '/' . $dataName);
+            $model->data = $dataName;
+
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -84,7 +103,25 @@ class KalenderController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){
+
+            $model->save();
+
+            $kalenderId = $model->id;
+            $kalenderName = $model->nama;
+
+            $image = UploadedFile::getInstance($model, 'img');
+            $imageName = 'kal_img_' . $kalenderId . '_' . $kalenderName . '.' . $image->getExtension();
+            $image->saveAs(Yii::getAlias('@kalenderImgPath') . '/' . $imageName);
+            $model->img = $imageName;
+
+            $kalenderData = UploadedFile::getInstance($model, 'data');
+            $dataName = 'kal_dat_' . $kalenderId . '_' . $kalenderName . '.' . $kalenderData->getExtension();
+            $kalenderData->saveAs(Yii::getAlias('@kalenderDataPath') . '/' . $dataName);
+            $model->data = $dataName;
+
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

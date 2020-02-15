@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Kalender */
 
-$this->title = 'Create Kalender';
-$this->params['breadcrumbs'][] = ['label' => 'Kalenders', 'url' => ['index']];
+$this->title = 'Tambah Kalender';
+$this->params['breadcrumbs'][] = ['label' => 'Kalender', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kalender-create">

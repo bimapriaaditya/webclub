@@ -7,6 +7,7 @@ use app\models\User;
 use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -64,7 +65,19 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $model->save();
+
+            $userId = $model->id;
+            $userName = $model->nama;
+            $image = UploadedFile::getInstance($model, 'img');
+            $imageName = 'Pic_' . $userId . '_' . $userName . '.' . $image->getExtension();
+            $image->saveAs(Yii::getAlias('@userImgPath') . '/' . $imageName); // simpan data di path tersedia
+            $model->img = $imageName;
+
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -84,7 +97,19 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){
+            
+            $model->save();
+
+            $userId = $model->id;
+            $userName = $model->nama;
+            $image = UploadedFile::getInstance($model, 'img');
+            $imageName = 'Pic_' . $userId . '_' . $userName . '.' . $image->getExtension();
+            $image->saveAs(Yii::getAlias('@userImgPath') . '/' . $imageName); // simpan data di path tersedia
+            $model->img = $imageName;
+
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

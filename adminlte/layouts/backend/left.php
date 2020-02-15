@@ -5,10 +5,10 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                <img src="<?= Yii::getAlias('@userImgUrl') . '/' . Yii::$app->user->identity->img ?>" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+                <p><?= Yii::$app->user->identity->nama ?></p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -30,7 +30,7 @@
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
-                    ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
+                    ['label' => 'Menu Sitebar Webclub', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'file-code', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'address-book', 'url' => ['/debug']],
                     ['label' => 'Login', 'icon' => 'users' ,'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],

@@ -36,6 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    <img src="<?= Yii::getAlias('@eskulImgUrl') . '/' .$model->img ?>" width="25%" height="25%">
+
+    <div>&nbsp;</div>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

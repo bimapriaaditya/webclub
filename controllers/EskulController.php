@@ -7,6 +7,7 @@ use app\models\Eskul;
 use app\models\EskulSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -64,7 +65,15 @@ class EskulController extends Controller
     {
         $model = new Eskul();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            $eskulName = $model->nama;
+            $image = UploadedFile::getInstance($model, 'img');
+            $eskulId = $model->id;
+            $imageName = 'Logo_' . $eskulId . '_' . $eskulName . '.' . $image->getExtension();
+            $image->saveAs( Yii::getAlias('@eskulImgPath') . '/' . $imageName); // Masukan Pathnya
+            $model->img = $imageName;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -84,7 +93,19 @@ class EskulController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){
+
+            $model->save();
+            
+            $eskulName = $model->nama;
+            $image = UploadedFile::getInstance($model, 'img');
+            $eskulId = $model->id;
+            $imageName = 'Logo_' . $eskulId . '_' . $eskulName . '.' . $image->getExtension();
+            $image->saveAs( Yii::getAlias('@eskulImgPath') . '/' . $imageName); // Masukan Pathnya
+            $model->img = $imageName;
+            
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

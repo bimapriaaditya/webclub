@@ -11,8 +11,8 @@ use Yii;
  * @property int $id_eskul
  * @property float $total
  * @property string $tanggal
- * @property string $keterangan
- * @property string $img
+ * @property string|null $keterangan
+ * @property string|null $img
  *
  * @property Eskul $eskul
  */
@@ -32,7 +32,7 @@ class UangKeluar extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_eskul', 'total', 'tanggal', 'keterangan', 'img'], 'required'],
+            [['id_eskul', 'total', 'tanggal'], 'required'],
             [['id_eskul'], 'integer'],
             [['total'], 'number'],
             [['tanggal'], 'safe'],

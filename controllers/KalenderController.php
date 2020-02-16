@@ -73,15 +73,18 @@ class KalenderController extends Controller
             $kalenderName = $model->nama;
 
             $image = UploadedFile::getInstance($model, 'img');
-            $imageName = 'kal_img_' . $kalenderId . '_' . $kalenderName . '.' . $image->getExtension();
-            $image->saveAs(Yii::getAlias('@kalenderImgPath') . '/' . $imageName);
-            $model->img = $imageName;
+            if ($image !== null) {
+                $imageName = 'kal_img_' . $kalenderId . '_' . $kalenderName . '.' . $image->getExtension();
+                $image->saveAs(Yii::getAlias('@kalenderImgPath') . '/' . $imageName);
+                $model->img = $imageName;
+            }
 
             $kalenderData = UploadedFile::getInstance($model, 'data');
-            $dataName = 'kal_dat_' . $kalenderId . '_' . $kalenderName . '.' . $kalenderData->getExtension();
-            $kalenderData->saveAs(Yii::getAlias('@kalenderDataPath') . '/' . $dataName);
-            $model->data = $dataName;
-
+            if ($kalenderData !== null ) {
+                $dataName = 'kal_dat_' . $kalenderId . '_' . $kalenderName . '.' . $kalenderData->getExtension();
+                $kalenderData->saveAs(Yii::getAlias('@kalenderDataPath') . '/' . $dataName);
+                $model->data = $dataName;
+            }
             $model->save();
             
             return $this->redirect(['view', 'id' => $model->id]);

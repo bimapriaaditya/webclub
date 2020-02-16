@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             [
                 'label' => 'Status',
-                'attribute' => 'id_role' 
+                'value' => function($data) {
+                    return $data->role->nama;
+                } 
             ],
             //'no_telepon',
             //'alamat:ntext',

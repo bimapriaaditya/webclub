@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <strong><?= $model->role->nama ?></strong>
     </h4>
 
-    <img src="<?= Yii::getAlias('@userImgUrl') . '/' .$model->img ?>" height="25%" width="25%">
+    <img src="<?= Yii::getAlias('@userImgUrl') . '/' .$model->img ?>" height="25%" width="25%" style="border-radius: 20px;">
 
     <div>&nbsp;</div>
 

@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'data')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'data')->fileInput() ?>
 
     <?= $form->field($model, 'tanggal')->textInput() ?>
 

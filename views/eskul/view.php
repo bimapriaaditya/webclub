@@ -23,30 +23,123 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="eskul-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <img src="<?= Yii::getAlias('@eskulImgUrl') . '/' .$model->img ?>" width="25%" height="25%">
-
     <div>&nbsp;</div>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'nama',
-            'img',
-        ],
-    ]) ?>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h2 class="box-title"> Logo </h2>
+                </div>
 
+                <div class="box-body" style="height: 300px">
+                    <?= Html::img('@eskulImgUrl/' .$model->img,['width' => '100%','height' => '100%']); ?>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-sm-8">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h2 class="box-title"> <?= $this->title; ?></h2>
+                </div>
+
+                <div class="box-body" style="height: 235px">
+                    <?= DetailView::widget([
+                        'model' => $model,
+                        'attributes' => [
+                            'nama',
+                            'img',
+                        ],
+                    ]) ?>
+                </div>
+
+                <div class="box-footer">
+                    <p>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <?= Html::a('<i class="glyphicon glyphicon-pencil"></i> Edit Data', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
+                                
+                            </div>
+                            <div class="col-sm-6">
+                                <?= Html::a('<i class="glyphicon glyphicon-trash"></i> Hapus Data', ['delete', 'id' => $model->id], [
+                                    'class' => 'btn btn-danger btn-block',
+                                    'data' => [
+                                        'confirm' => 'Are you sure you want to delete this item?',
+                                        'method' => 'post',
+                                    ],
+                                ]) ?>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <?= Html::a('Tambah Siswa', ['/eskul-siswa/create', 'id_eskul' => $model->id], ['class' => 'btn btn-success']) ?>
+        <div>&nbsp;</div>
+        <div class="row">
+            <div class="col col-sm-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h2 class="box-title"> Data Siswa </h2>
+                    </div>
+                    <div class="box-body" style="height: 235px">
+                        <table class="table table-borderd table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Kelas</th>
+                                    <th>Alamat</th>
+                                    <th>No.Telepon Pribadi</th>
+                                    <th>No.Telepon Orang Tua</th>
+                                    <th>Alamat Email</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            <tbody>
+                                <?php 
+                                    $no = 1;
+                                    foreach (EskulSiswa::find()
+                                    ->andWhere(['id_eskul' => $model->id])
+                                    ->all() as $EskulSiswa):?>
+
+                                    <tr>
+                                       <td> <?= $no++ ?> </td> 
+
+                                       <td> <?= $EskulSiswa->nama;?></td>
+
+                                       <td> <?= $EskulSiswa->kelas;?></td>
+
+                                       <td> <?= $EskulSiswa->alamat;?></td>
+
+                                       <td> <?= $EskulSiswa->no_telepon_siswa;?></td>
+
+                                       <td> <?= $EskulSiswa->no_telepon_orrtu;?></td>
+
+                                       <td> <?= $EskulSiswa->email;?></td>
+
+                                       <td>
+                                           <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/eskul-siswa/update', 'id' => $EskulSiswa->id]); ?>
+                                           <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/eskul-siswa/delete','id' => $EskulSiswa->id],[
+                                                    'data' => [
+                                                        'confirm' => 'Are you sure you want to delete this item?',
+                                                        'method' => 'post',
+                                                    ]
+                                                ]); 
+                                            ?>
+                                       </td>
+                                    </tr>
+
+                                <?php endforeach ?>
+                            </tbody>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

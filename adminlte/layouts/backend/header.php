@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use app\models\user;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -163,7 +164,10 @@ use yii\helpers\Html;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="" class="btn btn-default btn-flat">Profile</a>
+                                <?php 
+                                $lorem = new user();
+                                ?>
+                                <?= Html::a('Profile', ['/user/view', 'id' => Yii::$app->user->identity->id], ['class' => 'btn btn-default btn-flat']) ?>
                             </div>
                             <div class="pull-right">
                                 <?= Html::a(

@@ -62,4 +62,9 @@ class LaporanKegiatan extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Eskul::className(), ['id' => 'id_eskul']);
     }
+
+    public function setNamaEskul()
+    {
+        return $this->getEskul()->nama;
+    }
 }

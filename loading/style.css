@@ -1,0 +1,48 @@
+body{
+	background: #042331;
+	margin: 0;
+	padding: 0;
+}
+
+.main{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.title{
+	padding-left: 2%;
+	padding-right: 2%;
+	color: white;
+	font-family: cursive;
+	font-size: 70px;
+}
+
+.title span{
+	color: #d2d6de;
+}
+
+svg{
+	width: 100px;
+	height: 100px;
+}
+
+svg rect{
+	width: 100px;
+	height: 100px;
+	fill: none;
+	stroke: #00adff;
+	stroke-width: 100px;
+	stroke-dasharray: 100;
+	stroke-dashoffset: 50%;
+	animation: animate 1.5s linear infinite
+}
+
+@keyframes animate
+{
+	to
+	{
+		stroke-dashoffset:  250%;
+	}
+}

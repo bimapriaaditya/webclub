@@ -7,6 +7,7 @@ use app\models\LaporanKegiatan;
 use app\models\LaporanKegiatanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -64,7 +65,21 @@ class LaporanKegiatanController extends Controller
     {
         $model = new LaporanKegiatan();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $id = $model->id;
+            $name = $model->nama;
+            $tanggal = $model->tanggal;
+            
+            $model->save();
+            
+            $kegiatanData = UploadedFile::getInstance($model, 'data');
+            $kegiatanNama = $id . '_UPLOAD_FILE_' . $name . '_' . $tanggal . '.' . $kegiatanData->getExtension();
+            $kegiatanData->saveAs(Yii::getAlias('@laporan_kegiatanDataPath').'/'.$kegiatanNama);
+            $model->data = $kegiatanNama;
+
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

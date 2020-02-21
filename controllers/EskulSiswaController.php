@@ -65,7 +65,7 @@ class EskulSiswaController extends Controller
         $model = new EskulSiswa();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['/eskul/view', 'id' => $model->id_eskul]);
         }
 
         return $this->render('create', [
@@ -85,7 +85,7 @@ class EskulSiswaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['/eskul/view', 'id' => $model->id_eskul]);
         }
 
         return $this->render('update', [
@@ -102,9 +102,11 @@ class EskulSiswaController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+        
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/eskul/view', 'id' => $model->id_eskul]);
     }
 
     /**

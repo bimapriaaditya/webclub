@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "dmstr/yii2-adminlte-asset": "^2.1",
         "kartik-v/yii2-widget-datepicker": "@dev",
-        "yii2mod/yii2-sweet-alert": "*"
+        "yii2mod/yii2-sweet-alert": "*",
+        "rmrevin/yii2-fontawesome": "~3.5"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

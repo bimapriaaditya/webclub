@@ -84,9 +84,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col col-sm-12">
                 <div class="box box-warning">
                     <div class="box-header with-border">
-                        <h2 class="box-title"> Data Siswa </h2>
+                        <h2 class="box-title"> - DATA SISWA - </h2>
                     </div>
-                    <div class="box-body" style="height: 235px">
+                    <div class="box-body">
                         <table class="table table-borderd table-hover">
                             <thead>
                                 <tr>
@@ -138,6 +138,190 @@ $this->params['breadcrumbs'][] = $this->title;
                             </thead>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+        <?= Html::a('Tambah Laporan Kegiatan', ['/laporan-kegiatan/create'], ['class' => 'btn btn-success']) ?>
+        <div>&nbsp;</div>   
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h2 class="box-title"> - LAPORAN KEGIATAN - </h2>
+            </div>
+            <div class="box-body">
+                <table class="table table-borderd table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Kegiatan</th>
+                            <th>Tanggal Kegiatan</th>
+                            <th>Laporan</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                            $no = 1;
+                            foreach (LaporanKegiatan::find()
+                            ->andWhere(['id_eskul' => $model->id])
+                            ->all() as $LaporanKegiatan):?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td><?= $LaporanKegiatan->nama ?></td>
+                                <td><?= $LaporanKegiatan->tanggal ?></td>
+                                <td><?= $LaporanKegiatan->data ?></td>
+                                <td>
+                                    <?= Html::a('<i class="fas fa-download" style="color:green;"></i> ', [Yii::getAlias('@laporan_kegiatanDataUrl' . '/' . $LaporanKegiatan->data)]); ?>
+                                    <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/laporan-kegiatan/update', 'id' => $LaporanKegiatan->id]); ?>
+                                   <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/laporan-kegiatan/delete','id' => $LaporanKegiatan->id],[
+                                            'data' => [
+                                                'confirm' => 'Are you sure you want to delete this item?',
+                                                'method' => 'post',
+                                            ]
+                                        ]); 
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+        <!-- LAPORAN BULANAN -->
+        <?= Html::a('Tambah Laporan Bulanan', ['/laporan-bulanan/create'], ['class' => 'btn btn-success']) ?>
+        <div>&nbsp;</div>   
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h2 class="box-title"> - LAPORAN BULANAN - </h2>
+            </div>
+            <div class="box-body">
+                <table class="table table-borderd table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Bulan</th>
+                            <th>Tanggal Kirim</th>
+                            <th>Data</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        $no = 1;
+                        foreach (LaporanBulanan::find()
+                            ->andWhere(['id_eskul' => $model->id])
+                            ->all() as $LaporanBulanan):?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td><?= $LaporanBulanan->tanggal ?></td>
+                                <td><?= $LaporanBulanan->tanggal ?></td>
+                                <td><?= $LaporanBulanan->data ?></td>
+                                <td>
+                                    <?= Html::a('<i class="fas fa-download" style="color:green;"></i> '); ?>
+                                    <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/laporan-bulanan/update', 'id' => $LaporanBulanan->id]); ?>
+                                   <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/laporan-bulanan/delete','id' => $LaporanBulanan->id],[
+                                            'data' => [
+                                                'confirm' => 'Are you sure you want to delete this item?',
+                                                'method' => 'post',
+                                            ]
+                                        ]); 
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END OF LAPORAN BULANAN -->
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h2 class="box-title"> - LAPORAN KEUANGAN - </h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="box-body">
+                        <div class="box box-primary">
+                            <h4 class="box-title"> Uang Masuk </h4>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <div class="box-footer">
+                                <div class="col-md-12">
+                                    <?= Html::a('Tambah Data',['/uang-masuk/create'], ['class' => 'btn btn-primary btn-block']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="box-body">
+                        <div class="box box-primary">
+                            <h4 class="box-title"> Uang Masuk </h4>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <div class="box-footer">
+                                <div class="col-md-12">
+                                    <?= Html::a('Tambah Data',['/uang-masuk/create'], ['class' => 'btn btn-primary btn-block']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="box-body">
+                        <div class="box box-primary">
+                            <h4 class="box-title"> Uang Masuk </h4>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <div class="box-footer">
+                                <div class="col-md-12">
+                                    <?= Html::a('Tambah Data',['/uang-masuk/create'], ['class' => 'btn btn-primary btn-block']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <table class="table table-borderd table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Keterangan</th>
+                                <th>Tanggal</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $no = 1;
+                                foreach (UangMasuk::find()
+                                ->andWhere(['id_eskul' => $model->id])
+                                ->all() as $UangMasuk):?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $UangMasuk->nama ?></td>
+                                    <td><?= $UangMasuk->tanggal ?></td>
+                                    <td><?= $UangMasuk->total ?></td>
+                                    <td></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

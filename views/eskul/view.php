@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use rmrevin\yii\fontawesome\FAS;
 use app\models\EskulSiswa;
 use app\models\LaporanKegiatan;
 use app\models\LaporanBulanan;
@@ -234,68 +235,77 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <!-- END OF LAPORAN BULANAN -->
+        <!-- SELECT LAPORAN KEUANGAN -->
+        <div class="row">
+                <div class="col-sm-4">
+                    <div class="box-body">
+                        <div class="box box-primary" style="padding: 2%;">
+                            <h4 class="box-title"> - UANG MASUK - </h4>
+                            <?= Html::img('http://localhost/webclub/images/inti_img/uang1.png',['width' => '100%','height' => '100%']); ?>
+                            <div>&nbsp;</div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
+                            </p>
+                            <div class="box-footer">
+                                <div class="col-md-12">
+                                    <?= Html::a('Data Uang Masuk',['/uang-masuk/create'], ['class' => 'btn btn-primary btn-block']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="box-body">
+                        <div class="box box-primary" style="padding: 2%;">
+                            <h4 class="box-title"> - UANG KELUAR - </h4>
+                            <?= Html::img('http://localhost/webclub/images/inti_img/uang3.png',['width' => '100%','height' => '100%']); ?>
+                            <div>&nbsp;</div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                            </p>
+                            <div class="box-footer">
+                                <div class="col-md-12">
+                                    <?= Html::a('Data Uang Keluar',['/uang-keluar/create'], ['class' => 'btn btn-primary btn-block']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="box-body">
+                        <div class="box box-primary" style="padding: 2%;">
+                            <h4 class="box-title"> - UANG KAS - </h4>
+                            <?= Html::img('http://localhost/webclub/images/inti_img/uang4.png',['width' => '100%','height' => '100%']); ?>
+                            <div>&nbsp;</div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                            </p>
+                            <div class="box-footer">
+                                <div class="col-md-12">
+                                    <?= Html::a('Data Uang Kas',['/uang-kas/create'], ['class' => 'btn btn-primary btn-block']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- END OF SELECTION -->
+        <!-- DATA LAPORAN KEUANGAN -->
         <div class="box box-success">
             <div class="box-header with-border">
                 <h2 class="box-title"> - LAPORAN KEUANGAN - </h2>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <div class="box-body">
-                        <div class="box box-primary">
-                            <h4 class="box-title"> Uang Masuk </h4>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            <div class="box-footer">
-                                <div class="col-md-12">
-                                    <?= Html::a('Tambah Data',['/uang-masuk/create'], ['class' => 'btn btn-primary btn-block']) ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="box-body">
-                        <div class="box box-primary">
-                            <h4 class="box-title"> Uang Masuk </h4>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            <div class="box-footer">
-                                <div class="col-md-12">
-                                    <?= Html::a('Tambah Data',['/uang-masuk/create'], ['class' => 'btn btn-primary btn-block']) ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="box-body">
-                        <div class="box box-primary">
-                            <h4 class="box-title"> Uang Masuk </h4>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            <div class="box-footer">
-                                <div class="col-md-12">
-                                    <?= Html::a('Tambah Data',['/uang-masuk/create'], ['class' => 'btn btn-primary btn-block']) ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-6">
+                    <center>
+                        <h4> <u class="fa fa-angle-double-down"> 
+                                Uang Masuk  <i class="fa fa-angle-double-down"></i> 
+                            </u> 
+                        </h4>
+                    </center>
                     <table class="table table-borderd table-hover">
                         <thead>
                             <tr>
@@ -314,7 +324,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ->all() as $UangMasuk):?>
                                 <tr>
                                     <td><?= $no++ ?></td>
-                                    <td><?= $UangMasuk->nama ?></td>
+                                    <td><?= $UangMasuk->tanggal ?></td>
                                     <td><?= $UangMasuk->tanggal ?></td>
                                     <td><?= $UangMasuk->total ?></td>
                                     <td></td>
@@ -323,6 +333,78 @@ $this->params['breadcrumbs'][] = $this->title;
                         </tbody>
                     </table>
                 </div>
+                <div class="col-sm-6">
+                    <center>
+                        <h4> <u class="fa fa-angle-double-down"> 
+                                Uang Keluar  <i class="fa fa-angle-double-down"></i> 
+                            </u> 
+                        </h4>
+                    </center>
+                    <table class="table table-borderd table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Keterangan</th>
+                                <th>Tanggal</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $no = 1;
+                                foreach (UangMasuk::find()
+                                ->andWhere(['id_eskul' => $model->id])
+                                ->all() as $UangMasuk):?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $UangMasuk->tanggal ?></td>
+                                    <td><?= $UangMasuk->tanggal ?></td>
+                                    <td><?= $UangMasuk->total ?></td>
+                                    <td></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <center>
+                        <h4> <u class="fa fa-angle-double-down"> 
+                                Uang KAS  <i class="fa fa-angle-double-down"></i> 
+                            </u> 
+                        </h4>
+                    </center>
+                    <table class="table table-borderd table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Keterangan</th>
+                                <th>Tanggal</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $no = 1;
+                                foreach (UangMasuk::find()
+                                ->andWhere(['id_eskul' => $model->id])
+                                ->all() as $UangMasuk):?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $UangMasuk->tanggal ?></td>
+                                    <td><?= $UangMasuk->tanggal ?></td>
+                                    <td><?= $UangMasuk->total ?></td>
+                                    <td></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-2"></div>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\UangMasuk */
@@ -14,9 +15,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_eskul')->textInput() ?>
 
-    <?= $form->field($model, 'total')->textInput() ?>
+    <?= $form->field($model, 'total')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'tanggal')->textInput() ?>
+    <?= $form->field($model, 'tanggal')->widget(DatePicker::classname(),
+		['name' => 'anniversary',
+		'value' => '',
+	    'readonly' => true,
+	    'pluginOptions' => [
+	        'autoclose'=>true,
+	        'format' => 'yyyy/m/dd'
+	    ]
+	]) ?>
 
     <?= $form->field($model, 'keterangan')->textarea(['rows' => 6]) ?>
 

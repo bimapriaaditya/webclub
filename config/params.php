@@ -1,5 +1,5 @@
 <?php
-	
+
 	// Upload Logo Eskul
 	Yii::setAlias('@eskulImgPath','C:\xampp\htdocs\webclub\images\eskul_img\\');
 	Yii::setAlias('@eskulImgUrl','http://localhost/webclub/images/eskul_img/');

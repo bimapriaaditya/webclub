@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Feb 2020 pada 15.45
+-- Waktu pembuatan: 26 Feb 2020 pada 14.54
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.2.26
 
@@ -95,6 +95,20 @@ CREATE TABLE `eskul_siswa` (
   `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `eskul_siswa`
+--
+
+INSERT INTO `eskul_siswa` (`id`, `id_eskul`, `nama`, `kelas`, `alamat`, `no_telepon_siswa`, `no_telepon_orrtu`, `email`) VALUES
+(1, 1, 'Lorem Dulur Sucipto', 'XII RPL 1', 'Jl. Panjang Umur no.101', '088776541', '098776152', 'iniemail@mail.com'),
+(2, 1, 'Dobleh Saryawan', 'XI MM 2 ', 'Jl. Terus Pantang Kabur', '12123131431', '12342355621', 'inijuga@email.co.id'),
+(12, 2, 'Siti Salihatun', 'X AM 2', 'Jl Paradox', '088887655', '088897765', 'sitigmail@yahoo.co.jp'),
+(13, 1, 'Dia bukan saya', 'XII TPP', 'Jl jalan ', '12345671726', '12345671726', 'emailemail@gmail.co'),
+(14, 1, 'Ini saya bukan dia', 'XI FPP', 'Jl Sendiri', '1221313456', '1221313456', 'emailsaya@lorem.com'),
+(15, 1, 'Djajang Sudrajang', 'X TKJ 2', 'Jl Normal', '122333444455555', '666666555554444', 'normal@normal.com'),
+(16, 1, 'Tambah satu', 'XII TPGM', 'Jl Bersama lebih baik', '837565103947', '837565103947', 'lorememail@yahoo.com'),
+(17, 1, 'Ngikut ', 'XII TPGM', 'Jl apa aja yang penting ikut', '1234567891011', '1234567891011', 'plagiat@mail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -114,7 +128,9 @@ CREATE TABLE `kalender` (
 
 INSERT INTO `kalender` (`id`, `nama`, `data`, `img`) VALUES
 (1, 'Kalender Pelajaran 2020-2021', 'kal_dat_1_Kalender Pelajaran 2020-2021.docx', 'kal_img_1_Kalender Pelajaran 2020-2021.png'),
-(3, 'Lorem', '', '');
+(8, 'Lorem', 'kal_dat_8_Lorem.docx', 'kal_img_8_Lorem.png'),
+(9, 'Ipsum', 'kal_dat_9_Ipsum.pub', 'kal_img_9_Ipsum.png'),
+(10, 'Dolor', 'kal_dat_10_Dolor.pptx', 'kal_img_10_Dolor.png');
 
 -- --------------------------------------------------------
 
@@ -415,13 +431,13 @@ ALTER TABLE `eskul`
 -- AUTO_INCREMENT untuk tabel `eskul_siswa`
 --
 ALTER TABLE `eskul_siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `kalender`
 --
 ALTER TABLE `kalender`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `kalender_data`
@@ -439,7 +455,7 @@ ALTER TABLE `laporan_bulanan`
 -- AUTO_INCREMENT untuk tabel `laporan_kegiatan`
 --
 ALTER TABLE `laporan_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengajuan`

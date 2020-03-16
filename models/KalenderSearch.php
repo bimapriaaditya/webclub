@@ -18,7 +18,7 @@ class KalenderSearch extends Kalender
     {
         return [
             [['id'], 'integer'],
-            [['nama', 'data'], 'safe'],
+            [['nama', 'data', 'img'], 'safe'],
         ];
     }
 
@@ -62,7 +62,8 @@ class KalenderSearch extends Kalender
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'data', $this->data]);
+            ->andFilterWhere(['like', 'data', $this->data])
+            ->andFilterWhere(['like', 'img', $this->img]);
 
         return $dataProvider;
     }

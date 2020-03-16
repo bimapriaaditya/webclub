@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\KalenderDataSearch */
+/* @var $model app\models\KalenderSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -19,11 +19,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nama') ?>
 
-    <?= $form->field($model, 'tanggal') ?>
+    <?= $form->field($model, 'tempat') ?>
+
+    <?= $form->field($model, 'tanggal_mulai') ?>
 
     <?= $form->field($model, 'estimasi_waktu_kegiatan') ?>
 
-    <?= $form->field($model, 'id_eskul') ?>
+    <?php // echo $form->field($model, 'tanggal_selesai') ?>
+
+    <?php // echo $form->field($model, 'id_eskul') ?>
 
     <?php // echo $form->field($model, 'status') ?>
 

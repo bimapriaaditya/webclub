@@ -10,8 +10,9 @@ use Yii;
  * @property int $id
  * @property string $nama
  * @property string $tempat
- * @property string $tanggal
+ * @property string $tanggal_mulai
  * @property string $estimasi_waktu_kegiatan
+ * @property string $tanggal_selesai
  * @property int $id_eskul
  * @property int $status
  */
@@ -31,8 +32,8 @@ class KalenderData extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'tempat', 'tanggal', 'estimasi_waktu_kegiatan', 'id_eskul', 'status'], 'required'],
-            [['tanggal'], 'safe'],
+            [['nama', 'tempat', 'tanggal_mulai', 'estimasi_waktu_kegiatan', 'tanggal_selesai', 'id_eskul', 'status'], 'required'],
+            [['tanggal_mulai', 'tanggal_selesai'], 'safe'],
             [['id_eskul', 'status'], 'integer'],
             [['nama', 'tempat', 'estimasi_waktu_kegiatan'], 'string', 'max' => 255],
         ];
@@ -47,8 +48,9 @@ class KalenderData extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nama' => 'Nama',
             'tempat' => 'Tempat',
-            'tanggal' => 'Tanggal',
+            'tanggal_mulai' => 'Tanggal Mulai',
             'estimasi_waktu_kegiatan' => 'Estimasi Waktu Kegiatan',
+            'tanggal_selesai' => 'Tanggal Selesai',
             'id_eskul' => 'Id Eskul',
             'status' => 'Status',
         ];

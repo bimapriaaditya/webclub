@@ -476,4 +476,183 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-md-3"></div>
     </div>
+    <div class="row">
+        <div class="col-lg-4 col-xs-6">
+            <div class="small-box bg-blue">
+                <div class="inner">
+                    <h3>Date</h3>
+                    <p>Lihat Tanggal Pendidikan <br> SMKN 2 Bandung.</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-calendar" style="font-size: 90%;"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    <?= Html::a('Lihat Tanggal <i class="fa fa-arrow-circle-right"></i>',['/kalender/index/'], ['class' => 'small-box-footer']) ?>
+                </a>
+            </div>
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>Booking</h3>
+                    <p><i>Booking</i> Tanggal Kegiatan Acara<br> Biar Gak Bentrok Sama Eskul Lain</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-pushpin" style="font-size: 90%;"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    <?= Html::a('Ajukan Tanggal <i class="fa fa-arrow-circle-right"></i>',['/kalender-data/create/'], ['class' => 'small-box-footer']) ?>
+                </a>
+            </div>
+            <div class="small-box bg-red">
+                    <div class="inner">
+                        <h2><b>Booking List</b></h2>
+                        <p>Lihat Daftar Booking yang Telah <br> Dibuat oleh Eskul Lain Juga</p>
+                    </div>
+                    <div class="icon">
+                        <i class="glyphicon glyphicon-eye-open" style="font-size: 90%;"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        <?= Html::a('Lihat Tanggal <i class="fa fa-arrow-circle-right"></i>',['/kalender-data/index/'],['class' => 'small-box-footer'])  ?>
+                    </a>
+                </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h2 class="box-title"> - <b>BOOKINGAN </b> <?= $this->title; ?> - </h2>
+                </div>
+                <div class="box-body">
+                     <?= Html::a('Booking Tanggal',['/uang-kas/create'],['class' => 'btn btn-success']) ?>
+                     <table class="table table-borderd table-hover">
+                         <thead>
+                             <tr>
+                                 <th>No</th>
+                                 <th>Nama</th>
+                                 <th>Tempat</th>
+                                 <th>Tanggal Mulai</th>
+                                 <th>Estimasi Waktu</th>
+                                 <th>Tanggal Selesai</th>
+                                 <th>Status</th>
+                                 <th>Action</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             <?php
+                             $no = 1;
+                             foreach (KalenderData::find()
+                                ->andWhere(['id_eskul' => $model->id])
+                                ->all() as $KalenderData):?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td><?= $KalenderData->nama ?></td>
+                                <td><?= $KalenderData->tempat ?></td>
+                                <td><?= $KalenderData->tanggal_mulai ?></td>
+                                <td><?= $KalenderData->estimasi_waktu_kegiatan ?></td>
+                                <td><?= $KalenderData->tanggal_selesai ?></td>
+                                <td><?= $KalenderData->status ?></td>
+                                <td>
+                                    <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/kalender-data/update', 'id' => $KalenderData->id]); ?>
+                                    <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/kalender-data/delete','id' => $KalenderData->id],[
+                                            'data' => [
+                                                'confirm' => 'Are you sure you want to delete this item?',
+                                                'method' => 'post',
+                                            ]
+                                        ]); 
+                                    ?>
+                                </td>
+                            </tr>
+                            <?php endforeach ?>
+                         </tbody>
+                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="glyphicon glyphicon-ok"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Diterima</span>
+                    <span class="info-box-number" style="font-size: 150%;">20%</span>
+                    <span class="info-box-number">2</span>
+                </div>
+             </div>
+        </div>
+        <div class="col-md-5 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="glyphicon glyphicon-remove"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Ditolak</span>
+                    <span class="info-box-number" style="font-size: 150%">80%</span>
+                    <span class="info-box-number">10</span>
+                </div>
+             </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h2 class="box-title">- LIST PENGAJUAN -</h2>
+                </div>
+                <div class="box-body">
+                    <?= Html::a('Buat Pengajuan',['/pengajuan/create/'],['class' => 'btn btn-success']) ?>
+                    <div>&nbsp;</div>
+                    <table class="table table-borderd table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Tipe</th>
+                                <th>Dibuat Pada</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $no = 1;
+                            foreach(Pengajuan::find()
+                                ->andWhere(['id_eskul' => $model->id])
+                                ->all() as $Pengajuan):?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $Pengajuan->nama ?></td>
+                                    <td><?= $Pengajuan->type ?></td>
+                                    <td><?= $Pengajuan->tanggal ?></td>
+                                    <td><?= $Pengajuan->status ?></td>
+                                    <td>
+                                        <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/kalender/update', 'id' => $Pengajuan->id]); ?>
+                                        <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/kalender/delete','id' => $Pengajuan->id],[
+                                                'data' => [
+                                                    'confirm' => 'Are you sure you want to delete this item?',
+                                                    'method' => 'post',
+                                                ]
+                                            ]); 
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>Pengajuan</h3>
+                    <p>Ajukan yang Anda Inginkan <br> ke Sekolah</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-stats" style="font-size: 90%;"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    <?= Html::a('Ajukan Data <i class="fa fa-arrow-circle-right"></i>',['/pengajuan/create/'], ['class' => 'small-box-footer']) ?>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

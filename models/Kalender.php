@@ -9,8 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string $nama
- * @property string $data
- * @property string $img
+ * @property string|null $data
+ * @property string|null $img
  */
 class Kalender extends \yii\db\ActiveRecord
 {
@@ -29,7 +29,6 @@ class Kalender extends \yii\db\ActiveRecord
     {
         return [
             [['nama'], 'required'],
-            [['img' ,'data'], 'safe'],
             [['nama', 'data', 'img'], 'string', 'max' => 255],
         ];
     }

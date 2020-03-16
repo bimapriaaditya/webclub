@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\KalenderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Kalender';
+$this->title = 'Kalenders';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kalender-index">
@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'nama',
             'data',
+            'img',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

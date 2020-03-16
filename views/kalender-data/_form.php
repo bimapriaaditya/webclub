@@ -14,9 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tanggal')->textInput() ?>
+    <?= $form->field($model, 'tempat')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'tanggal_mulai')->textInput() ?>
 
     <?= $form->field($model, 'estimasi_waktu_kegiatan')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'tanggal_selesai')->textInput() ?>
 
     <?= $form->field($model, 'id_eskul')->textInput() ?>
 

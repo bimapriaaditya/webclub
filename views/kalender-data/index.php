@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\KalenderDataSearch */
+/* @var $searchModel app\models\KalenderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Kalender Datas';
@@ -28,9 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'nama',
-            'tanggal',
+            'tempat',
+            'tanggal_mulai',
             'estimasi_waktu_kegiatan',
-            'id_eskul',
+            //'tanggal_selesai',
+            //'id_eskul',
             //'status',
 
             ['class' => 'yii\grid\ActionColumn'],

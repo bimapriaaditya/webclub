@@ -58,11 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="box-footer">
                     <p>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <?= Html::a('<i class="glyphicon glyphicon-pencil"></i> Edit Data', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-block']) ?>
                                 
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <?= Html::a('<i class="glyphicon glyphicon-trash"></i> Hapus Data', ['delete', 'id' => $model->id], [
                                     'class' => 'btn btn-danger btn-block',
                                     'data' => [
@@ -70,6 +70,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'method' => 'post',
                                     ],
                                 ]) ?>
+                            </div>
+                            <div class="col-sm-4">
+                                <?= Html::a('<i class="glyphicon glyphicon-warning-sign"></i> Alert', ['/alert-eskul/create/'], ['class' => 'btn btn-warning btn-block']) ?>
+                                
                             </div>
                         </div>
                     </p>
@@ -652,6 +656,47 @@ $this->params['breadcrumbs'][] = $this->title;
                 <a href="#" class="small-box-footer">
                     <?= Html::a('Ajukan Data <i class="fa fa-arrow-circle-right"></i>',['/pengajuan/create/'], ['class' => 'small-box-footer']) ?>
                 </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h2 class="box-title">PERINGATAN !!!</h2>
+                </div>
+                <div class="box-body">
+                    <table class="table table-borderd table-hover">
+                        <thead>
+                            <th>No</th>
+                            <th>Perihal</th>
+                            <th>Keterangan</th>
+                            <th>Dikirim</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $no = 1;
+                            foreach(AlertEskul::find()
+                                ->andWhere(['id_eskul' => $model->id])
+                                ->all() as $AlertEskul):?>
+                                <td><?= $no++ ?></td>
+                                <td><?= $AlertEskul->perihal ?></td>
+                                <td><?= $AlertEskul->text ?></td>
+                                <td><?= $AlertEskul->tanggal ?></td>
+                                <td>
+                                    <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/alert-eskul/delete','id' => $AlertEskul->id],[
+                                                'data' => [
+                                                    'confirm' => 'Are you sure you want to delete this item?',
+                                                    'method' => 'post',
+                                                ]
+                                            ]); 
+                                        ?>
+                                </td>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

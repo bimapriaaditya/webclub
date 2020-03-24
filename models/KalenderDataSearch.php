@@ -18,7 +18,7 @@ class KalenderDataSearch extends KalenderData
     {
         return [
             [['id', 'id_eskul', 'status'], 'integer'],
-            [['nama', 'tanggal', 'estimasi_waktu_kegiatan'], 'safe'],
+            [['nama', 'tempat', 'tanggal_mulai', 'estimasi_waktu_kegiatan', 'tanggal_selesai'], 'safe'],
         ];
     }
 
@@ -59,12 +59,14 @@ class KalenderDataSearch extends KalenderData
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'tanggal' => $this->tanggal,
+            'tanggal_mulai' => $this->tanggal_mulai,
+            'tanggal_selesai' => $this->tanggal_selesai,
             'id_eskul' => $this->id_eskul,
             'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
+            ->andFilterWhere(['like', 'tempat', $this->tempat])
             ->andFilterWhere(['like', 'estimasi_waktu_kegiatan', $this->estimasi_waktu_kegiatan]);
 
         return $dataProvider;

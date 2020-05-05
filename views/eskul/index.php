@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EskulSearch */
@@ -17,19 +18,28 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Tambah Eskul', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <div class="row">
+
+        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
         <div class="col col-md-5">
-            <?= GridView::widget([
-                'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    'nama',
-                    ['class' => 'yii\grid\ActionColumn'],
-                ],
-            ]); ?>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    Lorem Ipsum Dolor
+                </div>
+                <div class="box-body">
+                    <?php Pjax::begin() ?>
+                        <?= GridView::widget([
+                            'dataProvider' => $dataProvider,
+                            'filterModel' => $searchModel,
+                            'columns' => [
+                                ['class' => 'yii\grid\SerialColumn'],
+                                'nama',
+                                ['class' => 'yii\grid\ActionColumn'],
+                            ],
+                        ]); ?>
+                    <?php Pjax::end() ?>
+                </div>
+            </div>
         </div>
         <div class="col col-md-7">
             <div class="col-md-12">
@@ -66,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <span class="info-box-text">Total Permintaan</span>
                             <span class="info-box-number" style="font-size: 150%;">20</span>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -89,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <span class="info-box-text">Pengguna (User)</span>
                             <span class="info-box-number" style="font-size: 150%;">20</span>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-12">
@@ -102,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <i class="glyphicon glyphicon-bullhorn" style="font-size: 90%;"></i>
                     </div>
                     <a href="#" class="small-box-footer">
-                        <?= Html::a('Lihat Tanggal <i class="glyphicon glyphicon-ok-circle"></i>',['/pengajuan/index/'], ['class' => 'small-box-footer']) ?>
+                        <?= Html::a('Lihat List <i class="glyphicon glyphicon-ok-circle"></i>',['/pengajuan/index/'], ['class' => 'small-box-footer']) ?>
                     </a>
                 </div>
             </div>
@@ -124,10 +134,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <span class="info-box-number" style="font-size: 150%">80%</span>
                         <span class="info-box-number">10</span>
                     </div>
-                 </div>
+                </div>
             </div>
         </div>
     </div>
-
-
 </div>

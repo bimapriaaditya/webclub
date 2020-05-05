@@ -36,5 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'tanggal',
         ],
     ]) ?>
-
+    <div style="text-align: right;">
+        <a href="<?= Yii::getAlias('@laporan_kegiatanDataUrl') . '/' . $model->data ?>" class="btn btn-danger"> Download File <span class="fa fa-download"></span> </a>
+    </div>
 </div>

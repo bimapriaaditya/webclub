@@ -65,7 +65,7 @@ class KalenderController extends Controller
     {
         $model = new Kalender();
 
-        if ($model->load(Yii::$app->request->post())){
+        if ($model->load(Yii::$app->request->post())) {
             
             $model->save();
 
@@ -79,12 +79,14 @@ class KalenderController extends Controller
                 $model->img = $imageName;
             }
 
+
             $kalenderData = UploadedFile::getInstance($model, 'data');
             if ($kalenderData !== null ) {
                 $dataName = 'kal_dat_' . $kalenderId . '_' . $kalenderName . '.' . $kalenderData->getExtension();
                 $kalenderData->saveAs(Yii::getAlias('@kalenderDataPath') . '/' . $dataName);
                 $model->data = $dataName;
             }
+
             $model->save();
             
             return $this->redirect(['view', 'id' => $model->id]);

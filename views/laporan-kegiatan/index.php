@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\LaporanKegiatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Laporan Kegiatans';
+$this->title = 'Laporan Kegiatan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-kegiatan-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Laporan Kegiatan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Laporan Kegiatan', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'id_eskul',
             'nama',
             'data',

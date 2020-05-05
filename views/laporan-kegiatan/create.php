@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\LaporanKegiatan */
 
-$this->title = 'Create Laporan Kegiatan';
-$this->params['breadcrumbs'][] = ['label' => 'Laporan Kegiatans', 'url' => ['index']];
+$this->title = 'Tambah Laporan Kegiatan';
+$this->params['breadcrumbs'][] = ['label' => 'Laporan Kegiatan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-kegiatan-create">

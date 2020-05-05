@@ -67,4 +67,10 @@ class LaporanKegiatan extends \yii\db\ActiveRecord
     {
         return $this->getEskul()->nama;
     }
+
+    public function deleteFile()
+    {
+        $path = Yii::getAlias('@laporan_kegiatanDataPath').'/'.$this->data;
+        return unlink($path);
+    }
 }

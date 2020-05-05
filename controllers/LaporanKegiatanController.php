@@ -22,7 +22,7 @@ class LaporanKegiatanController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['POST', 'GET'],
                 ],
             ],
         ];
@@ -67,19 +67,17 @@ class LaporanKegiatanController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $id = $model->id;
-            $name = $model->nama;
-            $tanggal = $model->tanggal;
-            
-            $model->save();
-            
-            $kegiatanData = UploadedFile::getInstance($model, 'data');
-            $kegiatanNama = $id . '_UPLOAD_FILE_' . $name . '_' . $tanggal . '.' . $kegiatanData->getExtension();
-            $kegiatanData->saveAs(Yii::getAlias('@laporan_kegiatanDataPath').'/'.$kegiatanNama);
-            $model->data = $kegiatanNama;
 
-            $model->save();
-            
+            $kegiatanData = UploadedFile::getInstance($model, 'data');
+
+           if ($kegiatanData !== null) {
+                $kegiatanNama = date('Ymdhis').'_UPLOAD_FILE_' . $model->nama . '_' . $model->tanggal . '.' . $kegiatanData->getExtension();
+                $model->data = $kegiatanNama;
+            }
+      
+            if($model->save()){
+                $kegiatanData->saveAs(Yii::getAlias('@laporan_kegiatanDataPath').'/'.$kegiatanNama);                
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -117,7 +115,9 @@ class LaporanKegiatanController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
+        $model->deleteFile();
 
         return $this->redirect(['index']);
     }

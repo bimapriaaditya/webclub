@@ -1,19 +1,23 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
-use yii\fontawesome\FAS;
-use app\models\EskulSiswa;
-use app\models\LaporanKegiatan;
-use app\models\LaporanBulanan;
 use app\models\AlertEskul;
+use app\models\EskulSiswa;
+use app\models\EskulSiswaSearch;
+use app\models\Kalender;
+use app\models\KalenderData;
+use app\models\LaporanBulanan;
+use app\models\LaporanKegiatan;
+use app\models\LaporanKegiatanSearch;
 use app\models\Pengajuan;
 use app\models\UangKas;
-use app\models\UangMasuk;
 use app\models\UangKeluar;
-use app\models\KalenderData;
-use app\models\Kalender;
+use app\models\UangMasuk;
 use app\models\User;
+use yii\data\ActiveDataProvider;
+use yii\fontawesome\FAS;
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Eskul */
 
@@ -92,56 +96,44 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h2 class="box-title"> - DATA SISWA - </h2>
                 </div>
                 <div class="box-body">
-                    <table class="table table-borderd table-hover">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Kelas</th>
-                                <th>Alamat</th>
-                                <th>No.Telepon Pribadi</th>
-                                <th>No.Telepon Orang Tua</th>
-                                <th>Alamat Email</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                        <tbody>
-                            <?php 
-                                $no = 1;
-                                foreach (EskulSiswa::find()
-                                ->andWhere(['id_eskul' => $model->id])
-                                ->all() as $EskulSiswa):?>
+                    <?php
+                    $searchModel = new EskulSiswaSearch();
+                    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+ 
+                    echo GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'nama',
+                            'kelas',
+                            'alamat:ntext',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'buttons' => [
+                                    'view' => function ($url, $model) {
+                                    $url ='index.php?r=eskul-siswa/view&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                'title' => Yii::t('app', 'view'),
+                                    ]);
+                                },
 
-                                <tr>
-                                   <td> <?= $no++ ?> </td> 
-
-                                   <td> <?= $EskulSiswa->nama;?></td>
-
-                                   <td> <?= $EskulSiswa->kelas;?></td>
-
-                                   <td> <?= $EskulSiswa->alamat;?></td>
-
-                                   <td> <?= $EskulSiswa->no_telepon_siswa;?></td>
-
-                                   <td> <?= $EskulSiswa->no_telepon_orrtu;?></td>
-
-                                   <td> <?= $EskulSiswa->email;?></td>
-
-                                   <td>
-                                       <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/eskul-siswa/update', 'id' => $EskulSiswa->id]); ?>
-                                       <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/eskul-siswa/delete','id' => $EskulSiswa->id],[
-                                                'data' => [
-                                                    'confirm' => 'Are you sure you want to delete this item?',
-                                                    'method' => 'post',
-                                                ]
-                                            ]); 
-                                        ?>
-                                   </td>
-                                </tr>
-
-                            <?php endforeach ?>
-                        </tbody>
-                        </thead>
-                    </table>
+                                'update' => function ($url, $model) {
+                                    $url ='index.php?r=eskul-siswa/update&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                'title' => Yii::t('app', 'update'),
+                                    ]);
+                                },
+                                'delete' => function ($url, $model) {
+                                    $url ='index.php?r=eskul-siswa/delete&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                'title' => Yii::t('app', 'delete'),
+                                    ]);
+                                }
+                              ],
+                            ],
+                        ],
+                    ]); ?>
                 </div>
             </div>
         </div>
@@ -155,42 +147,43 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h2 class="box-title"> - LAPORAN KEGIATAN - </h2>
                 </div>
                 <div class="box-body">
-                    <table class="table table-borderd table-hover">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center;">No</th>
-                                <th style="text-align: center;">Nama Kegiatan</th>
-                                <th style="text-align: center;">Tanggal Kegiatan</th>
-                                <th style="text-align: center;">Laporan</th>
-                                <th style="text-align: center;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                                $no = 1;
-                                foreach (LaporanKegiatan::find()
-                                ->andWhere(['id_eskul' => $model->id])
-                                ->all() as $LaporanKegiatan):?>
-                                <tr>
-                                    <td><?= $no++ ?></td>
-                                    <td><?= $LaporanKegiatan->nama ?></td>
-                                    <td><?= $LaporanKegiatan->tanggal ?></td>
-                                    <td><?= $LaporanKegiatan->data ?></td>
-                                    <td>
-                                        <?= Html::a('<i class="fas fa-download" style="color:green;"></i> ', [Yii::getAlias('@laporan_kegiatanDataUrl' . '/' . $LaporanKegiatan->data)]); ?>
-                                        <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/laporan-kegiatan/update', 'id' => $LaporanKegiatan->id]); ?>
-                                       <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/laporan-kegiatan/delete','id' => $LaporanKegiatan->id],[
-                                                'data' => [
-                                                    'confirm' => 'Are you sure you want to delete this item?',
-                                                    'method' => 'post',
-                                                ]
-                                            ]); 
-                                        ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
+                    <?php
+                    $dataProvider = $dataProvider = new ActiveDataProvider([
+                        'query' => LaporanKegiatan::find()->andWhere(['id_eskul' => $model->id]),
+                    ]);
+                    echo GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'nama',
+                            'data',
+                            'tanggal',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'buttons' => [
+                                    'view' => function ($url, $model) {
+                                    $url ='index.php?r=laporan-kegiatan/view&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                'title' => Yii::t('app', 'view'),
+                                    ]);
+                                },
+
+                                'update' => function ($url, $model) {
+                                    $url ='index.php?r=laporan-kegiatan/update&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                'title' => Yii::t('app', 'update'),
+                                    ]);
+                                },
+                                'delete' => function ($url, $model) {
+                                    $url ='index.php?r=laporan-kegiatan/delete&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                'title' => Yii::t('app', 'delete'),
+                                    ]);
+                                }
+                              ],
+                            ],
+                        ],
+                    ]); ?>
                 </div>
             </div>  
         </div>
@@ -203,42 +196,42 @@ $this->params['breadcrumbs'][] = $this->title;
             <h2 class="box-title"> - LAPORAN BULANAN - </h2>
         </div>
         <div class="box-body">
-            <table class="table table-borderd table-hover">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Bulan</th>
-                        <th>Tanggal Kirim</th>
-                        <th>Data</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    $no = 1;
-                    foreach (LaporanBulanan::find()
-                        ->andWhere(['id_eskul' => $model->id])
-                        ->all() as $LaporanBulanan):?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $LaporanBulanan->tanggal ?></td>
-                            <td><?= $LaporanBulanan->tanggal ?></td>
-                            <td><?= $LaporanBulanan->data ?></td>
-                            <td>
-                                <?= Html::a('<i class="fas fa-download" style="color:green;"></i> '); ?>
-                                <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/laporan-bulanan/update', 'id' => $LaporanBulanan->id]); ?>
-                               <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/laporan-bulanan/delete','id' => $LaporanBulanan->id],[
-                                        'data' => [
-                                            'confirm' => 'Are you sure you want to delete this item?',
-                                            'method' => 'post',
-                                        ]
-                                    ]); 
-                                ?>
-                            </td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+            <?php
+            $dataProvider = $dataProvider = new ActiveDataProvider([
+                'query' => LaporanBulanan::find()->andWhere(['id_eskul' => $model->id]),
+            ]);
+            echo GridView::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'tanggal',
+                    'data',
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'buttons' => [
+                            'view' => function ($url, $model) {
+                            $url ='index.php?r=laporan-bulanan/view&id='.$model->id;
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                        'title' => Yii::t('app', 'view'),
+                            ]);
+                        },
+
+                        'update' => function ($url, $model) {
+                            $url ='index.php?r=laporan-bulanan/update&id='.$model->id;
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                        'title' => Yii::t('app', 'update'),
+                            ]);
+                        },
+                        'delete' => function ($url, $model) {
+                            $url ='index.php?r=laporan-bulanan/delete&id='.$model->id;
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                        'title' => Yii::t('app', 'delete'),
+                            ]);
+                        }
+                      ],
+                    ],
+                ],
+            ]); ?>
         </div>
     </div>
     <!-- END OF LAPORAN BULANAN -->
@@ -299,41 +292,43 @@ $this->params['breadcrumbs'][] = $this->title;
                     </h4>
                 </center>
                 <!-- Table Uang Masuk -->
-                <table class="table table-borderd table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Keterangan</th>
-                            <th>Tanggal</th>
-                            <th>Total</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            $no = 1;
-                            foreach (UangMasuk::find()
-                            ->andWhere(['id_eskul' => $model->id])
-                            ->all() as $UangMasuk):?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td><?= $UangMasuk->keterangan ?></td>
-                                <td><?= $UangMasuk->tanggal ?></td>
-                                <td><?= $UangMasuk->total ?></td>
-                                <td>
-                                    <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/uang-masuk/update', 'id' => $UangMasuk->id]); ?>
-                                    <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/uang-masuk/delete','id' => $UangMasuk->id],[
-                                            'data' => [
-                                                'confirm' => 'Are you sure you want to delete this item?',
-                                                'method' => 'post',
-                                            ]
-                                        ]); 
-                                    ?>
-                                </td>
-                            </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
+                <?php
+                    $dataProvider = $dataProvider = new ActiveDataProvider([
+                        'query' => UangMasuk::find()->andWhere(['id_eskul' => $model->id]),
+                    ]);
+                    echo GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'total',
+                            'tanggal',
+                            'keterangan',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'buttons' => [
+                                    'view' => function ($url, $model) {
+                                    $url ='index.php?r=uang-masuk/view&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                'title' => Yii::t('app', 'view'),
+                                    ]);
+                                },
+
+                                'update' => function ($url, $model) {
+                                    $url ='index.php?r=uang-masuk/update&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                'title' => Yii::t('app', 'update'),
+                                    ]);
+                                },
+                                'delete' => function ($url, $model) {
+                                    $url ='index.php?r=uang-masuk/delete&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                'title' => Yii::t('app', 'delete'),
+                                    ]);
+                                }
+                              ],
+                            ],
+                        ],
+                    ]); ?>
                 <!-- End Of Table Uang Masuk -->
             </div>
             <div class="col-sm-6">
@@ -344,41 +339,44 @@ $this->params['breadcrumbs'][] = $this->title;
                     </h4>
                 </center>
                 <!-- Table Uang KAS -->
-                <table class="table table-borderd table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Keterangan</th>
-                            <th>Tanggal</th>
-                            <th>Total</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            $no = 1;
-                            foreach (UangKas::find()
-                            ->andWhere(['id_eskul' => $model->id])
-                            ->all() as $UangKas):?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td><?= $UangKas->nama ?></td>
-                                <td><?= $UangKas->tanggal ?></td>
-                                <td><?= $UangKas->total ?></td>
-                                <td>
-                                    <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/uang-kas/update', 'id' => $UangKas->id]); ?>
-                                    <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/uang-kas/delete','id' => $UangKas->id],[
-                                            'data' => [
-                                                'confirm' => 'Are you sure you want to delete this item?',
-                                                'method' => 'post',
-                                            ]
-                                        ]); 
-                                    ?>
-                                </td>
-                            </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
+                <?php
+                    $dataProvider = $dataProvider = new ActiveDataProvider([
+                        'query' => UangKas::find()->andWhere(['id_eskul' => $model->id]),
+                    ]);
+                    echo GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'id_eskul',
+                            'nama',
+                            'tanggal',
+                            'total',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'buttons' => [
+                                    'view' => function ($url, $model) {
+                                    $url ='index.php?r=uang-kas/view&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                'title' => Yii::t('app', 'view'),
+                                    ]);
+                                },
+
+                                'update' => function ($url, $model) {
+                                    $url ='index.php?r=uang-kas/update&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                'title' => Yii::t('app', 'update'),
+                                    ]);
+                                },
+                                'delete' => function ($url, $model) {
+                                    $url ='index.php?r=uang-kas/delete&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                'title' => Yii::t('app', 'delete'),
+                                    ]);
+                                }
+                              ],
+                            ],
+                        ],
+                    ]); ?>
                 <!-- End of Table KAS -->
             </div>
         </div>
@@ -392,44 +390,44 @@ $this->params['breadcrumbs'][] = $this->title;
                     </h4>
                 </center>
                 <!-- Table Uang Keluar -->
-                <table class="table table-borderd table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Keterangan</th>
-                            <th>Tanggal</th>
-                            <th>Total</th>
-                            <th>Img</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            $no = 1;
-                            foreach (UangKeluar::find()
-                            ->andWhere(['id_eskul' => $model->id])
-                            ->all() as $UangKeluar):?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td><?= $UangKeluar->keterangan ?></td>
-                                <td><?= $UangKeluar->tanggal ?></td>
-                                <td><?= $UangKeluar->total ?></td>
-                                <td><?= $UangKeluar->img ?></td>
-                                <td>
-                                    <?= Html::a('<i class="fas fa-download" style="color:green;"></i> '); ?>
-                                    <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/uang-keluar/update', 'id' => $UangKeluar->id]); ?>
-                                    <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/uang-keluar/delete','id' => $UangKeluar->id],[
-                                            'data' => [
-                                                'confirm' => 'Are you sure you want to delete this item?',
-                                                'method' => 'post',
-                                            ]
-                                        ]); 
-                                    ?>
-                                </td>
-                            </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
+                <?php
+                    $dataProvider = $dataProvider = new ActiveDataProvider([
+                        'query' => UangKeluar::find()->andWhere(['id_eskul' => $model->id]),
+                    ]);
+                    echo GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'keterangan',
+                            'tanggal',
+                            'total',
+                            'img',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'buttons' => [
+                                    'view' => function ($url, $model) {
+                                    $url ='index.php?r=uang-keluar/view&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                'title' => Yii::t('app', 'view'),
+                                    ]);
+                                },
+
+                                'update' => function ($url, $model) {
+                                    $url ='index.php?r=uang-keluar/update&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                'title' => Yii::t('app', 'update'),
+                                    ]);
+                                },
+                                'delete' => function ($url, $model) {
+                                    $url ='index.php?r=uang-keluar/delete&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                'title' => Yii::t('app', 'delete'),
+                                    ]);
+                                }
+                              ],
+                            ],
+                        ],
+                    ]); ?>
                 <!-- End of Uang Keluar -->
             </div>
             <div class="col-sm-2"></div>
@@ -526,47 +524,44 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="box-body">
                      <?= Html::a('Booking Tanggal',['/uang-kas/create'],['class' => 'btn btn-success']) ?>
-                     <table class="table table-borderd table-hover">
-                         <thead>
-                             <tr>
-                                 <th>No</th>
-                                 <th>Nama</th>
-                                 <th>Tempat</th>
-                                 <th>Tanggal Mulai</th>
-                                 <th>Estimasi Waktu</th>
-                                 <th>Tanggal Selesai</th>
-                                 <th>Status</th>
-                                 <th>Action</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                             <?php
-                             $no = 1;
-                             foreach (KalenderData::find()
-                                ->andWhere(['id_eskul' => $model->id])
-                                ->all() as $KalenderData):?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td><?= $KalenderData->nama ?></td>
-                                <td><?= $KalenderData->tempat ?></td>
-                                <td><?= $KalenderData->tanggal_mulai ?></td>
-                                <td><?= $KalenderData->estimasi_waktu_kegiatan ?></td>
-                                <td><?= $KalenderData->tanggal_selesai ?></td>
-                                <td><?= $KalenderData->status ?></td>
-                                <td>
-                                    <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/kalender-data/update', 'id' => $KalenderData->id]); ?>
-                                    <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/kalender-data/delete','id' => $KalenderData->id],[
-                                            'data' => [
-                                                'confirm' => 'Are you sure you want to delete this item?',
-                                                'method' => 'post',
-                                            ]
-                                        ]); 
-                                    ?>
-                                </td>
-                            </tr>
-                            <?php endforeach ?>
-                         </tbody>
-                     </table>
+                     <?php
+                    $dataProvider = $dataProvider = new ActiveDataProvider([
+                        'query' => KalenderData::find()->andWhere(['id_eskul' => $model->id]),
+                    ]);
+                    echo GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'nama',
+                            'tempat',
+                            'tanggal_mulai',
+                            'tanggal_selesai',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'buttons' => [
+                                    'view' => function ($url, $model) {
+                                    $url ='index.php?r=kalender-data/view&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                'title' => Yii::t('app', 'view'),
+                                    ]);
+                                },
+
+                                'update' => function ($url, $model) {
+                                    $url ='index.php?r=kalender-data/update&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                'title' => Yii::t('app', 'update'),
+                                    ]);
+                                },
+                                'delete' => function ($url, $model) {
+                                    $url ='index.php?r=kalender-data/delete&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                'title' => Yii::t('app', 'delete'),
+                                    ]);
+                                }
+                              ],
+                            ],
+                        ],
+                    ]); ?>
                 </div>
             </div>
         </div>
@@ -604,43 +599,44 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="box-body">
                     <?= Html::a('Buat Pengajuan',['/pengajuan/create/'],['class' => 'btn btn-success']) ?>
                     <div>&nbsp;</div>
-                    <table class="table table-borderd table-hover">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Tipe</th>
-                                <th>Dibuat Pada</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                            $no = 1;
-                            foreach(Pengajuan::find()
-                                ->andWhere(['id_eskul' => $model->id])
-                                ->all() as $Pengajuan):?>
-                                <tr>
-                                    <td><?= $no++ ?></td>
-                                    <td><?= $Pengajuan->nama ?></td>
-                                    <td><?= $Pengajuan->type ?></td>
-                                    <td><?= $Pengajuan->tanggal ?></td>
-                                    <td><?= $Pengajuan->status ?></td>
-                                    <td>
-                                        <?= Html::a('<i class="glyphicon glyphicon-edit"></i> ', ['/kalender/update', 'id' => $Pengajuan->id]); ?>
-                                        <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/kalender/delete','id' => $Pengajuan->id],[
-                                                'data' => [
-                                                    'confirm' => 'Are you sure you want to delete this item?',
-                                                    'method' => 'post',
-                                                ]
-                                            ]); 
-                                        ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
+                    <?php
+                    $dataProvider = $dataProvider = new ActiveDataProvider([
+                        'query' => Pengajuan::find()->andWhere(['id_eskul' => $model->id]),
+                    ]);
+                    echo GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'nama',
+                            'type',
+                            'tanggal',
+                            'status',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'buttons' => [
+                                    'view' => function ($url, $model) {
+                                    $url ='index.php?r=pengajuan/view&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                'title' => Yii::t('app', 'view'),
+                                    ]);
+                                },
+
+                                'update' => function ($url, $model) {
+                                    $url ='index.php?r=pengajuan/update&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                'title' => Yii::t('app', 'update'),
+                                    ]);
+                                },
+                                'delete' => function ($url, $model) {
+                                    $url ='index.php?r=pengajuan/delete&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                'title' => Yii::t('app', 'delete'),
+                                    ]);
+                                }
+                              ],
+                            ],
+                        ],
+                    ]); ?>
                 </div>
             </div>
         </div>
@@ -666,36 +662,43 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h2 class="box-title">PERINGATAN !!!</h2>
                 </div>
                 <div class="box-body">
-                    <table class="table table-borderd table-hover">
-                        <thead>
-                            <th>No</th>
-                            <th>Perihal</th>
-                            <th>Keterangan</th>
-                            <th>Dikirim</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-                            <?php 
-                            $no = 1;
-                            foreach(AlertEskul::find()
-                                ->andWhere(['id_eskul' => $model->id])
-                                ->all() as $AlertEskul):?>
-                                <td><?= $no++ ?></td>
-                                <td><?= $AlertEskul->perihal ?></td>
-                                <td><?= $AlertEskul->text ?></td>
-                                <td><?= $AlertEskul->tanggal ?></td>
-                                <td>
-                                    <?= Html::a('<i class="glyphicon glyphicon-trash" style="color:red;"></i>',['/alert-eskul/delete','id' => $AlertEskul->id],[
-                                                'data' => [
-                                                    'confirm' => 'Are you sure you want to delete this item?',
-                                                    'method' => 'post',
-                                                ]
-                                            ]); 
-                                        ?>
-                                </td>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
+                    <?php
+                    $dataProvider = $dataProvider = new ActiveDataProvider([
+                        'query' => AlertEskul::find()->andWhere(['id_eskul' => $model->id]),
+                    ]);
+                    echo GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'perihal',
+                            'text',
+                            'tanggal',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'buttons' => [
+                                    'view' => function ($url, $model) {
+                                    $url ='index.php?r=alert/view&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                'title' => Yii::t('app', 'view'),
+                                    ]);
+                                },
+
+                                'update' => function ($url, $model) {
+                                    $url ='index.php?r=alert/update&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                'title' => Yii::t('app', 'update'),
+                                    ]);
+                                },
+                                'delete' => function ($url, $model) {
+                                    $url ='index.php?r=alert/delete&id='.$model->id;
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                'title' => Yii::t('app', 'delete'),
+                                    ]);
+                                }
+                              ],
+                            ],
+                        ],
+                    ]); ?>
                 </div>
             </div>
         </div>

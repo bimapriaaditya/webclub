@@ -19,7 +19,15 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'data')->fileInput() ?>
 
-    <?= $form->field($model, 'tanggal')->textInput() ?>
+    <?= $form->field($model, 'tanggal')->widget(DatePicker::classname(),
+		['name' => 'anniversary',
+		'value' => '',
+	    'readonly' => true,
+	    'pluginOptions' => [
+	        'autoclose'=>true,
+	        'format' => 'yyyy-m-dd'
+	    ]
+	]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

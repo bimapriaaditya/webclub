@@ -45,7 +45,7 @@ class EskulSiswaSearch extends EskulSiswa
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => EskulSiswa::find()->andWhere(['id_eskul' => $params]),
         ]);
 
         $this->load($params);

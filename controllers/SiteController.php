@@ -81,7 +81,11 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            $this->redirect(['eskul/index']); 
+            if (User::isKesiswaan()) {
+                $this->redirect(['eskul/index']); 
+            }else{
+                $this->redirect(['eskul/view', 'id' => Yii::$app->user->identity->id_role]);
+            }
         }
 
         $model->password = '';
